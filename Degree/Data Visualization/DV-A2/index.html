@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>Trade in Goods Import of Tea, Coffee, Cocoa and Spices 1998-2018</title>
+  <link rel="stylesheet" href="index.css" />
+  <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+  <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+  <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+</head>
+
+<body>
+  <div data-role="page" data-url="/index.html" tabindex="0" class="ui-page ui-page-theme-a ui-page-active" id="main">
+    <div class="panel" style="width: inherit;">
+      <div id="action-button-container" style="float: left;padding: 0 5px;"> <button class="btn" id="action-button" type="button">Sort : Descenting</button>
+      </div>
+      <div>
+        <form style="width: inherit;margin-left:90px;margin-top:-28px">
+          <fieldset class="ui-grid-a" style="width: 63em;">
+                <div class="ui-block-a">
+                <fieldset data-role="controlgroup" data-theme="b" data-type="horizontal" style="width: max-content;">
+                <input id="annually" class="period" type="radio" name="period" value="annually" checked="checked" />
+                <label for="annually">Annually</label>
+                <input id="quarterly" class="period" type="radio" name="period" value="quarterly" />
+                <label for="quarterly">Quarterly</label>
+                <input id="monthly" class="period" type="radio" name="period" value="monthly" />
+                <label for="monthly">Monthly</label>
+              </fieldset>
+            </div>
+                <div class="ui-block-b" data-theme="b" data-role="controlgroup" style="height: 60px;">
+                  <div class="ui-field-contain" style="padding: 0;margin:0px;top:-1.2em" id="yearDropDown">
+                     <label for="year" style="margin-top:37px;margin-bottom: 37px;text-align: end;">Year :</label>
+                     <select name="year" id="select-button">
+                      <option value="">1998</option>
+                    </select>
+                  </div>
+                  <form><fieldset data-role="controlgroup" data-type="horizontal" style="padding: 0;margin:0px; display:none" id="groupedViewSwitch">
+                            <input type="radio" name="radio-choice-h-2" id="radio-choice-h-2a" class="type" value="grouped" checked="checked">
+                            <label for="radio-choice-h-2a">Grouped</label>
+                            <input type="radio" name="radio-choice-h-2" id="radio-choice-h-2b" class="type" value="stacked">
+                            <label for="radio-choice-h-2b">Stacked</label>
+                        </fieldset>
+                    </form>
+                </div>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+
+    <h3 style="margin-left:170px;font-family: Arial, Helvetica, sans-serif;font-size: 30px">Imports of coffee, tea,
+      cocoa
+      & spices from all countries versus <span id="title">Year</span></h3>
+    <div id="chart" class="chart"></div>
+    <div id="x-label" class="x-label">Year</div>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script type="module" src="index.js"></script>
+
+
+  </div>
+</body>
+
+</html>

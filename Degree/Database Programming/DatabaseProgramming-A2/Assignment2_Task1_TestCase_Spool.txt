@@ -1,0 +1,36 @@
+SQL> SET ECHO ON
+SQL> SET FEEDBACK ON
+SQL> SET LINESIZE 200
+SQL> SET PAGESIZE 200
+SQL> SET SERVEROUTPUT ON
+SQL> 
+SQL> 
+SQL> BEGIN
+  2  	     -- driver not available
+  3  	     /*
+  4  	     INSERT INTO schedule(sno,lno,regno,schedule_date)
+  5  	     VALUES (111,20002,'PKR768','22-NOV-2021');
+  6  
+  7  	     -- lorry not available
+  8  	     INSERT INTO schedule(sno,lno,regno,schedule_date)
+  9  	     VALUES (111,10001,'SST005','22-NOV-2021');
+ 10  
+ 11  	     -- schedule date not more than 3 day from today
+ 12  	     INSERT INTO schedule(sno,lno,regno,schedule_date)
+ 13  	     VALUES (111,10001,'PKR768','16-NOV-2021');
+ 14  
+ 15  	     -- no driver or lorry data found
+ 16  	     INSERT INTO schedule(sno,lno,regno,schedule_date)
+ 17  	     VALUES (111,10004,'PKR766','22-NOV-2021');
+ 18  	     */
+ 19  	     -- valid case
+ 20  	     INSERT INTO schedule(sno,lno,regno,schedule_date)
+ 21  	     VALUES (111,10001,'PKR768','22-NOV-2021');
+ 22  END;
+ 23  /
+The schedule had been created successfully.                                                                                                                                                             
+
+PL/SQL procedure successfully completed.
+
+SQL> 
+SQL> SPOOL OFF

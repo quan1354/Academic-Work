@@ -1,0 +1,143 @@
+SQL> SET FEEDBACK ON
+SQL> SET LINESIZE 200
+SQL> SET PAGESIZE 200
+SQL> SET SERVEROUTPUT ON
+SQL> 
+SQL> CREATE OR REPLACE PROCEDURE show_Driver_Visited(p_schedule_year VARCHAR2) AS
+  2  
+  3  --cursors
+  4  CURSOR cur_emp IS
+  5  SELECT *
+  6  FROM employee
+  7  ORDER BY name;
+  8  
+  9  --variables
+ 10  v_driver_count NUMBER := 0;
+ 11  v_license_no driver.lno%TYPE;
+ 12  v_year NUMBER := 0;
+ 13  
+ 14  --exception
+ 15  e_invalid_year EXCEPTION;
+ 16  PRAGMA EXCEPTION_INIT(e_invalid_year,-20001);
+ 17  
+ 18  -- procedures
+ 19  PROCEDURE println(str VARCHAR2) AS
+ 20  	     BEGIN
+ 21  		     DBMS_OUTPUT.PUT_LINE(str);
+ 22  	     END;
+ 23  
+ 24  PROCEDURE print(str VARCHAR2) AS
+ 25  	     BEGIN
+ 26  		     DBMS_OUTPUT.PUT(str);
+ 27  	     END;
+ 28  
+ 29  PROCEDURE blank_line AS
+ 30  	     BEGIN
+ 31  		     DBMS_OUTPUT.PUT_LINE(CHR(10));
+ 32  	     END;
+ 33  
+ 34  BEGIN
+ 35  
+ 36  	     v_year := TRUNC(p_schedule_year);
+ 37  
+ 38  	     IF v_year NOT BETWEEN 1800 AND 2300 THEN
+ 39  		     RAISE e_invalid_year;
+ 40  	     END IF;
+ 41  
+ 42  	     --print header
+ 43  	     println('LOGISTIC YEAR: '||v_year);
+ 44  	     println('----------------------------------');
+ 45  
+ 46  	     --loop through each employee in employee table using cursor to perform sorting based on employee name
+ 47  	     FOR employee IN cur_emp LOOP
+ 48  
+ 49  		     --use nested block to perform further exception handling and data process
+ 50  		     DECLARE
+ 51  			     v_route_count NUMBER := 0;
+ 52  
+ 53  			     CURSOR cur_log IS
+ 54  				     SELECT *
+ 55  				     FROM schedule
+ 56  				     WHERE EXTRACT(YEAR FROM schedule_date) = v_year
+ 57  				     AND lno = v_license_no;
+ 58  		     BEGIN
+ 59  			     --get the license no of current employee if any
+ 60  			     SELECT lno INTO v_license_no
+ 61  			     FROM driver
+ 62  			     WHERE eno = employee.eno;
+ 63  
+ 64  			     FOR sch IN cur_log LOOP
+ 65  
+ 66  				     -- this block will be go through if this is the first route of the employee
+ 67  				     IF v_route_count = 0 THEN
+ 68  					     --add 1 to driver count if driver is found and has at least 1 route
+ 69  					     v_driver_count := v_driver_count + 1;
+ 70  
+ 71  					     --print employee information
+ 72  					     blank_line();
+ 73  					     println('#'||v_driver_count);
+ 74  					     println('Employee No: '||TO_CHAR(employee.eno,'00000'));
+ 75  					     println('Employee Name:'||employee.name);
+ 76  					     println('License No:'||v_license_no);
+ 77  				     END IF;
+ 78  
+ 79  				     -- print route with counter
+ 80  				     v_route_count := v_route_count + 1;
+ 81  				     print('Route '||v_route_count||' : ');
+ 82  
+ 83  				     -- use nested block to perform reading of route information
+ 84  				     DECLARE
+ 85  					     CURSOR cur_route IS
+ 86  					     SELECT *
+ 87  					     FROM route
+ 88  					     WHERE sno = sch.sno
+ 89  					     ORDER BY rno;
+ 90  
+ 91  					     v_destination route.destination%TYPE;
+ 92  					     route_count NUMBER := 0;
+ 93  				     BEGIN
+ 94  					     --loop through the route and display the locations
+ 95  					     FOR r IN cur_route LOOP
+ 96  						     print(r.departure || ' -> ');
+ 97  						     v_destination := r.destination;
+ 98  						     route_count := route_count + 1;
+ 99  					     END LOOP;
+100  
+101  					     --show error message if no route is found
+102  					     --if route is found, print the final destination after loop through the locations
+103  					     IF route_count = 0 THEN
+104  						     println('No Route Information Is Found.');
+105  					     ELSE
+106  						     println(v_destination);
+107  					     END IF;
+108  
+109  				     END;
+110  			     END LOOP;
+111  		     EXCEPTION
+112  			     WHEN NO_DATA_FOUND THEN
+113  				     CONTINUE;
+114  			     WHEN OTHERS THEN
+115  				     println('Failed to read data from database: '|| SQLERRM);
+116  		     END;
+117  	     END LOOP;
+118  
+119  	     --print error message if no driver has any schedule in the year
+120  	     IF v_driver_count = 0 THEN
+121  		     println('No Logistic Data Found in year '||v_year);
+122  	     ELSE
+123  		     println('All visited route had been shown.');
+124  	     END IF;
+125  
+126  EXCEPTION
+127  	     --handle unexpected behaviour
+128  	     WHEN e_invalid_year THEN
+129  		     println('Invalid year provided, the range of year should between 1800 and 2300!');
+130  	     WHEN OTHERS THEN
+131  		     println('Failed to read data from database: '|| SQLERRM);
+132  END;
+133  /
+
+Procedure created.
+
+SQL> 
+SQL> SPOOL OFF

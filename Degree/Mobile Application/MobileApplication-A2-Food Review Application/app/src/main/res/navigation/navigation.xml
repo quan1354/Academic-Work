@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    android:label="Add a new Food"
+    app:startDestination="@id/FoodListFragment">
+    <fragment
+        android:id="@+id/FoodListFragment"
+        android:name="com.example.assignment.FoodFragment"
+        android:label="Food"
+        tools:layout="@layout/fragment_noodle_list">
+        <action
+            android:id="@+id/action_noodleFragment_to_addFoodFragment"
+            app:destination="@id/addFoodFragment" />
+        <action
+            android:id="@+id/action_FoodListFragment_to_foodDetailFragment"
+            app:destination="@id/foodDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.assignment.WelcomeScreen.WelcomeFragment"
+        android:label="Welcom Food Directory"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_loginFragment_to_noodleFragment"
+            app:destination="@id/FoodListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addFoodFragment"
+        android:name="com.example.assignment.AddFoodFragment"
+        android:label="Add new Food"
+        tools:layout="@layout/add_food_fragment">
+        <argument
+            android:name="id"
+            app:argType="long" />
+    </fragment>
+    <fragment
+        android:id="@+id/foodDetailFragment"
+        android:name="com.example.assignment.FoodDetailFragment"
+        android:label="FoodDetailFragment"
+        tools:layout="@layout/fragment_food_detail">
+        <action
+            android:id="@+id/action_foodDetailFragment_to_addFoodFragment2"
+            app:destination="@id/addFoodFragment" />
+        <action
+            android:id="@+id/action_foodDetailFragment_self"
+            app:destination="@id/foodDetailFragment" />
+        <argument
+            android:name="parcel"
+            app:argType="com.example.assignment.FoodParcel" />
+    </fragment>
+</navigation>

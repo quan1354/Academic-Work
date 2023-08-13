@@ -1,0 +1,319 @@
+<html>
+   <head>  
+      <title>TosBURGER&trade; </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+      <!--layout adjustment -->
+      <style type='text/css'>
+
+      .header{
+       text-align: right;
+       padding: 90px;
+       background-image: url(header.jpg);
+      }
+
+      /* The navbar container */
+      .topnav {
+       overflow: hidden;
+       background-color: #333;
+      }
+
+      /* Navbar links */
+      .topnav a {
+       float:left;
+       display: block;
+       color: #f2f2f2;
+       text-align: center;
+       padding:16px    85px;
+       text-decoration: none;
+      }
+
+      /* Links - change color on hover */
+      .topnav a:hover {
+       background-color: #ddd;
+       color: black;
+      }
+
+      .topnav a.active {
+       background-color: #2196F3;
+       color: white;
+      }
+
+      .topnav input[type=text] {
+       float: right;
+       padding: 6px;
+       margin-top: 8px;
+       margin-right: 16px;
+       border: none;
+       font-size: 17px;
+      }
+
+      .overlay {
+       height: 100%;
+       width: 0;
+       position: fixed;
+       z-index: 1;
+       top: 0;
+       left: 0;
+       background-color: rgb(0,0,0);
+       background-color: rgba(0,0,0, 0.9);
+       overflow-x: hidden;
+       transition: 0.5s;
+      }
+
+      .overlay-content {
+       position: relative;
+       top: 25%;
+       width: 100%;
+       text-align: center;
+       margin-top: 30px;
+      }
+
+      .overlay a {
+       padding: 8px;
+       text-decoration: none;
+       font-size: 36px;
+       color: #818181;
+       display: block;
+       transition: 0.3s;
+      }
+
+      .overlay a:hover, .overlay a:focus {
+       color: #f1f1f1;
+      }
+
+      .overlay .closebtn {
+       position: absolute;
+       top: 20px;
+       right: 45px;
+       font-size: 60px;
+      }
+
+      .mainspace{
+        text-align: center;
+       float: right;
+       width: 100%;
+       margin-left: -1474px;
+       background-color: white;
+       height: 100%;
+      }
+
+      .footer {
+       position: fixed;
+       left: 0;
+       bottom: 0;
+       width: 100%;
+       background-color: rgb(29, 27, 27);
+       color: white;
+       height: 5%;
+       text-align: center;
+      }
+
+      body {
+       padding: 0px;
+       margin: 0px;
+      }
+
+      .column {
+        float: left;
+        width: 33.33%;
+        padding: 15px;
+      }
+        
+      /* Clear floats after the columns */
+      .row:after {
+        content: "";
+        display: table;
+        clear: both;
+      }
+        
+       /* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+        @media screen and (max-width:600px) {
+          .column {
+            width: 100%;
+        }
+      }
+      .button {   
+        display: inline-block;
+        border-radius: 4px;
+        background-color: #110d0cb4;
+        border: none;
+        color: #FFFFFF;
+        text-align: center;
+        font-size: 15px;
+        padding: 7px;
+        width: 100px;
+        transition: all 0.5s;
+        cursor: pointer;
+        margin: 5px;
+      }
+
+      .button span {
+        cursor: pointer;
+        display: inline-block;
+        position: relative;
+        transition: 0.5s;
+      }
+
+      .button span:after {
+        content: '\00bb';
+        position: absolute;
+        opacity: 0;
+        top: 0;
+        right: -20px;
+        transition: 0.5s;
+      }
+
+      .button:hover span {
+        padding-right: 25px;
+      }   
+
+      .button:hover span:after {
+        opacity: 1;
+        right: 0;
+      }
+
+    </style>
+
+   </head>
+
+   <body>
+
+     <div class="header"> <!--item in header-->
+         <a href="Homepage.html">
+            <img align ="left" src="Logo.png" height="100px" width="150px">  <!--LOGO-->
+         </a> 
+         <a href="Login.html"><button class="button" ><span>Login</span></button></a>
+       &emsp;
+       <a href="mycart.html"><img  align="right" src="carticon.png" width="4%" height="6%" ></a>
+       <a href="Memberprofile.html"><img  align="right" src="login icon.png" width="80px" height="80px" ></a> <!--Login icon-->
+          
+      </div>
+      <div class="topnav"> <!--top nav bar-->
+        <a style="font-weight: bold;" href="About us.html">About Us</a>
+        <a style="font-weight: bold;" href="New_Alerts.html">New Alert</a>
+        <a style="font-weight: bold;" href="gallery.html">Gallery</a>
+        <a style="font-weight: bold;" href="luckydraw.html">Lucky Draw</a>
+        <a style="font-weight: bold;" href="Reservation.html">Reservation</a>
+        <input type="text" placeholder="Search..">
+     </div>
+
+     <div id="myNav" class="overlay"> <!--Contain of curtain menu-->
+         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+         <div class="overlay-content">
+            <a href="Homepage.html">Homepage</a>
+            <a href="About us.html">About Us</a>
+            <a href="gallery.html">Gallery</a>
+            <a href="Feedback.html">Feedback</a>
+            <a href="Burgerclass.html">Burger class</a>
+            <a href="Location.html">Location</a>
+            <a href="jobvacancy.html">Job Vancancy</a>
+         </div>
+     </div>
+      <!--Function of menu-->
+      <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; </span> 
+
+      <script>
+          function openNav() {
+            document.getElementById("myNav").style.width = "100%";
+          }
+        
+          function closeNav() {
+            document.getElementById("myNav").style.width = "0%";
+          }
+        </script>
+
+
+      <div class="mainspace"> <!--content on main space-->
+        <h1>About Us</h1>
+        <div style="font-weight: bolder;"> <!--Clickable title that will jump to the content of it-->
+          <a style="color: black;"  href="#Our History">Our History </a>| 
+          <a style="color: black;" href="#Our Mission and Vission"> Our Mission and Vision </a>|
+          <a style="color: black;" href="#Company News"> Company News </a>
+        </div>
+        <hr/>
+
+        <h2 id="Our History">Our History</h2>
+        <blockquote>
+          <p align="center" style="font-size: larger;line-height: 40px;">
+            In 2019, five friends gather and decided to open a restaurant. In 2020, the 1st restaurants began called TOS Burger has been opened in Kuala Lumpur. Now, as they says, is history. Now, TOS Burger® becoming the diamond in the rough among organization-organizations in Malaysia. Today, TOS Burger having about 3 branches which were Johor, Penang, and Perak. The five persons’ success story will continue with TOS Burger families of employees, franchisees and suppliers as long as well. Their commitment, determination and achievements wont died and must be live with and inherited at TOS Burger® restaurants across the world.  As the dark horse fast food and leading QSR brand in Malaysia, we are continue working to provide the best service to our customers with these marvelous moments, well-done services and also TOS Burger’s food.
+          </p>
+        </blockquote>
+        <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
+        <h2 id="Our Mission and Vission">Our Mission and Vission</h2>
+        <blockquote>
+          <p align="center" style="font-size: larger;line-height: 40px;">
+            <h3>Brand Mission</h3>
+            <li style="font-size: larger">To be the best in customers’ mind and place to eat.</li>
+            <h3 >Brand Promise.</h3>
+            <li style="font-size: larger">To provide the most simple, fresh and delicious products every day to all the customers each their visit.</li>
+            <h3>Our Values</h3>
+            <li style="font-size: larger">TOS Burger®’s mission is to become customers’ favorite place to eat-with the best of quality, service, cleanliness and value at all the time.</li>
+            <p align="center" style="font-size:large;line-height: 40px;">
+              We place the customers at the first place.
+              The customers are the reason for us to continue our serving. We show our appreciation by the way of providing the high quality food and advanced but friendly service, clean and comfortable environment. Our goals is outstanding TOS Burger as their second home for each customer at all the time.
+              We give back to our communities
+              We take our responsibility as becoming a leader. We assist our customers to build a better communities.  We are devoted to sustainable business practices and are decided to conduct our operations in way that does not compromise the capability of future generations to fulfill their desires.
+              We always strive to improve ourselves
+              We believe that TOS Burger is act as a learning organization that is green and growing which anticipants and responds to transform customers, employee, system and community desires through evolution and innovation.
+            </p>
+          </p>
+        </blockquote>
+        <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+        
+        <h2 id="Company News">Company News</h2>
+        <blockquote align="center" style="font-size: larger;line-height: 40px;">
+          <p>
+            GET DOWN WITH TOS BURGER AMERICAN STYLE CHICKEN BURGER KUALA LUMPUR,15 MAR 2020- Malaysians can now fulfil their cravings for the incredibly anticipated American style chicken burger Down as TOS Burger Malaysia unveils its go back nowadays. Back by using popular call for, this ‘All Meat No Bun’ burger is the most likely making waves that its debut in 2020.
+          </p>
+          <p>
+            IT’S A FANTASTIC TASTE THAT BRING U IN LOVE KUALA LUMPUR, 22 JAN 2020- The animal style has landed into our TOS Burger! A unique flavor is here to trap and allure TOS Burger fanatics with the new TOS animal style burger- featuring unique special recipe sauce to pinnacle TOS Burgers’ signature Hot & Spicy chook.
+          </p>
+          <p>
+            A NEW TOS BURGER HAS ARRIVED IN JOHOR, 05 FEB 2020- TOS Burger Bhd, the sole operator is showing no signal of slowing down with the successful launch of its TOS Burger outlet in the vibrant downtown of Johor city nowadays, as a part of its national growth strategies.
+          </p>
+          <p>
+            RELEASE THE ‘KAIJU’ WITH THE NEW TOS CHEEZILLA BURGER KUALA LUMPUR, 22 MAR 2020- TOS Burger Malaysia is pushing the bounds in burger innovations with its exquisite introduction- the NEW TOS Cheezilla Burger. This unique product promises to provide some other absolutely indulgent and pleasing eating enjoy to our customers.
+          </p>
+          <p>
+            SHARE GOLDEN MOMENTS WITH TOS BURGER THIS FESTIVA SEASONS KUALA LUMPUR, 17 FEB 2020- TOS Burger is ushering the festive seasons with a golden favorite that is set to pleasure TOS Burger fans and make gatherings with buddies and own family extra joyful. The TOS Burger Golden Egg Crunch features the popular favorite salted egg, promising a mouth-watering enjoy that is irresistible.
+          </p>
+        </blockquote>
+        <br/><br/><br/><br/>
+      </div>
+
+
+      <div class="footer"> <!--footer-->
+        
+        &emsp;
+        <a style="color: white;">|</a>
+        &emsp; &emsp;&emsp;
+        <a style="font-size: 25px;color: seashell;" href="ContactUs.html" >Contact us</a>
+        &emsp; &emsp;&emsp;
+        <a style="color: white;">|</a>
+        &emsp; &emsp;&emsp;
+        <a style="font-size: 25px;color: seashell;" href="Location.html" >Location</a>
+        &emsp; &emsp;&emsp;
+        <a style="color: white;">|</a>
+        &emsp; &emsp;&emsp;
+        <a style="font-size: 25px;color: seashell;" href="jobvacancy.html" >Job Vancancy</a>
+        &emsp; &emsp;&emsp;
+        <a style="color: white;">|</a>
+        &emsp; &emsp;&emsp;
+        <a style="font-size: 25px;color: seashell;" href="faq.html" >FAQ</a>
+        &emsp; &emsp;&emsp;
+        <a style="color: white;">|</a>
+        &emsp; &emsp;&emsp;
+        <a style="font-size: 25px;color: seashell;" href="termandconditionsENG.html" >Term & Conditions</a>
+        &emsp; &emsp;&emsp;
+        <a style="color: white;">|</a>
+        &emsp;
+        <span>Follow Us :</span> <!--FB,INSTA and TWITTER LOGO-->
+        <i style="font-size:20px" class="fa">&#xf082;</i>
+        <i style="font-size:20px" class="fa">&#xf16d;</i>
+        <i style="font-size:24px" class="fa">&#xf099;</i>
+      </div>
+   </body>
+</html>

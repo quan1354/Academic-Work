@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">Assignment1</string>
+    <string name="kg">Kg</string>
+    <string name="units">Units</string>
+    <string name="ins">Ins</string>
+    <string name="height">height</string>
+    <string name="Height">Height</string>
+    <string name="Weight">Weight</string>
+    <string name="weight">weight</string>
+    <string name="cm">Cm</string>
+    <string name="lbs">lbs</string>
+    <string name="compute">Calculate</string>
+    <string name="clear">Clear</string>
+    <string name="enter_your_age">Enter your Age</string>
+    <string name="female">Female</string>
+    <string name="male">Male</string>
+    <string name="age">Age</string>
+    <string name="gender">Gender</string>
+    <string name="index_body_mass_calculator_ibm">Index Body Mass Calculator (IBM)</string>
+    <string name="details">Details</string>
+    <string name="method_s">Method : %1s</string>
+    <string name="height_s">Height : %1s</string>
+    <string name="weight_s">Weight : %1s</string>
+    <string name="gender_s">Gender : %1s</string>
+    <string name="age_group_s">Group : %1s</string>
+    <string name="result">Result</string>
+    <string name="calculation_s">IBM Score : %1s</string>
+    <string name="bodystatus">bodyStatus</string>
+    <string name="your_are_s">Your are</string>
+    <string name="again">Again</string>
+    <string-array name="calType">
+        <item>Metric</item>
+        <item>Imperial</item>
+    </string-array>>
+</resources>

@@ -1,0 +1,100 @@
+.panel {
+  float: left;
+}
+
+#main {
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+  font-weight: 500;
+  font-size: 20px;
+  background-color: #22262f;
+}
+
+.chart {
+  clear: left;
+}
+
+.grid line {
+  stroke: lightgrey;
+  stroke-opacity: 0.7;
+  shape-rendering: crispEdges;
+  fill: none;
+}
+
+.grid path {
+  fill: none;
+  stroke-width: 0;
+}
+
+.btn {
+  background: #3498db;
+  border-radius: 28px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 700;
+  width: 6em;
+}
+
+.btn:hover {
+  background: #3cb0fd;
+  text-decoration: none;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: inline-block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover {
+  background-color: #111;
+}
+
+svg {
+  font: 10px sans-serif;
+}
+
+.subBar {
+  fill: gray;
+  opacity: 0.5;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.brush .extent {
+  stroke: #fff;
+  fill: steelblue;
+  fill-opacity: 0.25;
+  shape-rendering: crispEdges;
+}
+
+rect.mover {
+  stroke: red;
+  stroke-opacity: 0.1;
+  fill: lightSteelBlue;
+  fill-opacity: 0.5;
+}
+
+.x-label {
+  position: relative;
+  top: -32px;
+  left: 33em
+}

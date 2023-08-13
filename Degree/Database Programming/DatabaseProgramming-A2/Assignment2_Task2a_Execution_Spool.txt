@@ -1,0 +1,28 @@
+SQL> SET ECHO ON
+SQL> SET FEEDBACK ON
+SQL> SET LINESIZE 200
+SQL> SET PAGESIZE 200
+SQL> SET SERVEROUTPUT ON
+SQL> 
+SQL> DECLARE
+  2  
+  3  BEGIN
+  4  	     --valid cases
+  5  	     insert_route(108,'Kuala Lumpur','Terengganu');
+  6  	     insert_route(69,'Penang','Malacca');
+  7  
+  8  	     --invalid cases
+  9  	     --departure not same as last destination
+ 10  	     insert_route(108,'Johor','Penang');
+ 11  
+ 12  	     --invalid schedule number
+ 13  	     insert_route(190,'Terengganu','Penang');
+ 14  END;
+ 15  /
+Error :-20001,Departure must be same as previous destination.                                                                                                                                           
+Error :-20002,Scedule Number Does Not Exsit.                                                                                                                                                            
+
+PL/SQL procedure successfully completed.
+
+SQL> 
+SQL> SPOOL OFF

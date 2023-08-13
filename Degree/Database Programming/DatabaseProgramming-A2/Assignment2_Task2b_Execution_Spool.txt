@@ -1,0 +1,109 @@
+SQL> SET ECHO ON
+SQL> SET FEEDBACK ON
+SQL> SET LINESIZE 200
+SQL> SET PAGESIZE 200
+SQL> SET SERVEROUTPUT ON
+SQL> 
+SQL> DECLARE
+  2  	     --get user input
+  3  	     v_year NUMBER := '&year';
+  4  BEGIN
+  5  	     --call the procedure with user input
+  6  	     IF v_year BETWEEN 1800 AND 2300 THEN
+  7  		     show_Driver_Visited(TRUNC(v_year));
+  8  	     ELSE
+  9  		     DBMS_OUTPUT.PUT_LINE('The year given should between year 1800 and 2300');
+ 10  	     END IF;
+ 11  END;
+ 12  /
+Enter value for year: 2002
+old   3: 	v_year NUMBER := '&year';
+new   3: 	v_year NUMBER := '2002';
+LOGISTIC YEAR: 2002                                                                                                                                                                                     
+----------------------------------                                                                                                                                                                      
+
+                                                                                                                                                                                                      
+
+#1                                                                                                                                                                                                      
+Employee No:  00003                                                                                                                                                                                     
+Employee Name:Brian Lee                                                                                                                                                                                 
+License No:10002                                                                                                                                                                                        
+Route 1 : Kuala Lumpur -> Penang -> Pahang -> Penang -> Slim River                                                                                                                                      
+Route 2 : Penang -> Kuala Lumpur -> Johor Bahru -> Pahang -> Penang                                                                                                                                     
+Route 3 : No Route Information Is Found.                                                                                                                                                                
+Route 4 : Penang -> Kuala Lumpur -> Pahang -> Kuala Lumpur                                                                                                                                              
+
+                                                                                                                                                                                                      
+
+#2                                                                                                                                                                                                      
+Employee No:  00005                                                                                                                                                                                     
+Employee Name:Calvin Goh                                                                                                                                                                                
+License No:10003                                                                                                                                                                                        
+Route 1 : Penang -> Kuala Lumpur -> Johor Bahru -> Pahang -> Penang -> Melaka -> Canberra -> Pahang -> Johor Bahru                                                                                      
+Route 2 : Penang -> Kuala Lumpur -> Johor Bahru -> Pahang -> Penang                                                                                                                                     
+Route 3 : Kuala Lumpur -> Penang -> Pahang -> Penang -> Slim River                                                                                                                                      
+Route 4 : Kuala Lumpur -> Penang -> Pahang -> Penang -> Slim River                                                                                                                                      
+Route 5 : Penang -> Teluk Intan -> Slim River -> Rawang                                                                                                                                                 
+Route 6 : Penang -> Kuala Lumpur -> Pahang -> Kuala Lumpur                                                                                                                                              
+Route 7 : Kuala Lumpur -> Penang -> Pahang -> Kuala Lumpur                                                                                                                                              
+
+                                                                                                                                                                                                      
+
+#3                                                                                                                                                                                                      
+Employee No:  00009                                                                                                                                                                                     
+Employee Name:Chan Zi Fong                                                                                                                                                                              
+License No:30005                                                                                                                                                                                        
+Route 1 : Kuala Lumpur -> Penang -> Pahang -> Penang                                                                                                                                                    
+Route 2 : Penang -> Teluk Intan -> Slim River -> Rawang                                                                                                                                                 
+Route 3 : Kuala Lumpur -> Penang -> Pahang -> Penang -> Slim River                                                                                                                                      
+Route 4 : Penang -> Kuala Lumpur -> Seremban -> Pahang -> Johor Bahru -> Melaka                                                                                                                         
+Route 5 : No Route Information Is Found.                                                                                                                                                                
+Route 6 : Penang -> Kuala Lumpur -> Pahang -> Kuala Lumpur                                                                                                                                              
+
+                                                                                                                                                                                                      
+
+#4                                                                                                                                                                                                      
+Employee No:  00011                                                                                                                                                                                     
+Employee Name:Jasmine Liana Roy                                                                                                                                                                         
+License No:20005                                                                                                                                                                                        
+Route 1 : Penang -> Slim River                                                                                                                                                                          
+Route 2 : Penang -> Teluk Intan -> Slim River -> Rawang                                                                                                                                                 
+Route 3 : Penang -> Teluk Intan -> Slim River -> Rawang                                                                                                                                                 
+Route 4 : Penang -> Kuala Lumpur -> Johor Bahru -> Pahang -> Penang                                                                                                                                     
+Route 5 : Kuala Lumpur -> Penang -> Pahang -> Kuala Lumpur                                                                                                                                              
+
+                                                                                                                                                                                                      
+
+#5                                                                                                                                                                                                      
+Employee No:  00007                                                                                                                                                                                     
+Employee Name:Natalie Quah                                                                                                                                                                              
+License No:20002                                                                                                                                                                                        
+Route 1 : Penang -> Teluk Intan -> Slim River -> Rawang                                                                                                                                                 
+Route 2 : Penang -> Kuala Lumpur -> Seremban -> Pahang -> Johor Bahru -> Melaka                                                                                                                         
+Route 3 : Penang -> Kuala Lumpur -> Johor Bahru -> Pahang -> Penang                                                                                                                                     
+Route 4 : Kuala Lumpur -> Penang -> Pahang -> Penang -> Slim River                                                                                                                                      
+Route 5 : Penang -> Teluk Intan -> Slim River -> Rawang                                                                                                                                                 
+Route 6 : Penang -> Kuala Lumpur -> Pahang -> Kuala Lumpur                                                                                                                                              
+
+                                                                                                                                                                                                      
+
+#6                                                                                                                                                                                                      
+Employee No:  00001                                                                                                                                                                                     
+Employee Name:Thomas Chong                                                                                                                                                                              
+License No:10001                                                                                                                                                                                        
+Route 1 : Penang -> Kuala Lumpur -> Seremban -> Pahang -> Johor Bahru -> Melaka                                                                                                                         
+Route 2 : Penang -> Teluk Intan -> Slim River -> Rawang                                                                                                                                                 
+Route 3 : Penang -> Kuala Lumpur -> Seremban -> Pahang -> Johor Bahru -> Melaka                                                                                                                         
+Route 4 : Penang -> Kuala Lumpur -> Seremban -> Pahang -> Johor Bahru -> Melaka                                                                                                                         
+Route 5 : Penang -> Kuala Lumpur -> Johor Bahru -> Pahang -> Penang                                                                                                                                     
+Route 6 : Penang -> Kuala Lumpur -> Seremban -> Pahang -> Johor Bahru -> Melaka                                                                                                                         
+Route 7 : Penang -> Kuala Lumpur -> Seremban -> Pahang -> Johor Bahru -> Melaka                                                                                                                         
+Route 8 : Penang -> Kuala Lumpur -> Johor Bahru -> Pahang -> Penang                                                                                                                                     
+Route 9 : Kuala Lumpur -> Penang -> Pahang -> Penang -> Slim River                                                                                                                                      
+Route 10 : Kuala Lumpur -> Penang -> Pahang -> Kuala Lumpur                                                                                                                                             
+All visited route had been shown.                                                                                                                                                                       
+
+PL/SQL procedure successfully completed.
+
+SQL> 
+SQL> SPOOL OFF

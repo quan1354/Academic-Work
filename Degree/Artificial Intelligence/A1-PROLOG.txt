@@ -1,0 +1,250 @@
+%knowledgebase weather
+weather(penang,monday,specification(high,medium,raining)).
+weather(penang,tuesday,specification(high,medium,cloudy)).
+weather(penang,wednesday,specification(medium,high,raining)).
+weather(penang,thursday,specification(high,medium,raining)).
+weather(penang,friday,specification(medium,low,cloudy)).
+weather(penang,saturday,specification(high,low,raining)).
+weather(penang,sunday,specification(medium,high,raining)).
+
+weather(kedah,monday,specification(high,low,cloudy)).
+weather(kedah,tuesday,specification(medium,high,cloudy)).
+weather(kedah,wednesday,specification(medium,medium,sunny)).
+weather(kedah,thursday,specification(low,low,cloudy)).
+weather(kedah,friday,specification(high,low,sunny)).
+weather(kedah,saturday,specification(high,low,cloudy)).
+weather(kedah,sunday,specification(low,high,cloudy)).
+
+weather(perak,monday,specification(high,high,cloudy)).
+weather(perak,tuesday,specification(medium,medium,cloudy)).
+weather(perak,wednesday,specification(high,low,cloudy)).
+weather(perak,thursday,specification(high,high,cloudy)).
+weather(perak,friday,specification(high,low,cloudy)).
+weather(perak,saturday,specification(high,low,sunny)).
+weather(perak,sunday,specification(low,high,raining)).
+
+weather(malacca,monday,specification(high,low,raining)).
+weather(malacca,tuesday,specification(medium,medium,sunny)).
+weather(malacca,wednesday,specification(medium,low,cloudy)).
+weather(malacca,thursday,specification(high,low,cloudy)).
+weather(malacca,friday,specification(medium,high,sunny)).
+weather(malacca,saturday,specification(medium,low,cloudy)).
+weather(malacca,sunday,specification(medium,low,cloudy)).
+
+weather(sabah,monday,specification(medium,high,cloudy)).
+weather(sabah,tuesday,specification(high,high,cloudy)).
+weather(sabah,wednesday,specification(high,high,cloudy)).
+weather(sabah,thursday,specification(high,high,raining)).
+weather(sabah,friday,specification(high,high,sunny)).
+weather(sabah,saturday,specification(high,medium,raining)).
+weather(sabah,sunday,specification(medium,low,raining)).
+
+%knowledgebase famous destinationa and food
+destination(penang,kek_lok_si_temple).
+destination(kedah,langkawi_sky_bridge).
+destination(perak,pangkor_island).
+destination(malacca,christ_church_malacca).
+destination(sabah,poring_hot_spring).
+food(penang,char_koay_teow).
+food(kedah,mee_udang).
+food(perak,chicken_rice).
+food(malacca,hainanse_chicken_rice_ball).
+food(sabah,sinalau_bakas).
+
+run:-
+write('Welcome To Weather Expert System, My name is Lee.'),nl,
+write('I am here to provide forcasting weather and tourism information service'),nl,
+write('-----------------------------------------Menu----------------------------------------------------'),nl,
+write('1 Show weather details to appoint country on next week'),nl, % backward chaining
+write('2 Plan a day to visit Malaysia on next week'),nl,			% forward chaining
+write('3 Travel Suggestion'),nl,									% forward chaining
+write('4 Malaysia Fruits'),nl,									    % forward chaining
+write('-----------------------------------------------------------------------------------------------------'),nl,   
+write('Plese select information that you want to know :D'),nl,
+read(Option),
+action(Option).
+
+
+action(1) :-
+    write('What country you like to visit in Malaysia (penang/kedah/perak/malacca/sabah)?'),nl,
+	read(State),
+    member(State,[penang,kedah,perak,malacca,sabah]),
+    weather(State,Y,specification(T,H,W)),
+    format('~w ~w weather information is ~n weather : ~w  ~n Humidity : ~w  ~n temperature : ~w  ~n',[State,Y,W,H,T]),
+    reminder(W).
+
+action(2) :-
+    write('What State are you prefer to visit on next week (penang/kedah/perak/malacca/sabah)?'),nl,
+    read(State),
+    member(State,[penang,kedah,perak,malacca,sabah]),
+    write('temperature Malaysia 30-31 °C is consider medium'),nl,
+    write('What Temperature value you prefer in (°C)?'),nl,
+    read(Temperature),
+    write('What Humidity are you prefer in (low,medium,high)?'),nl,
+    read(Humidity),
+    member(Humidity,[low,high,medium]),
+    write('What Weather are you prefer in (raining,sunny,cloudy)?'),nl,
+    read(Weather),
+    member(Weather,[raining,sunny,cloudy]),
+    planDay(Temperature,Weather,State,Humidity).
+
+action(3) :-
+	askPlace(penang),
+    askPlace(kedah),
+    askPlace(perak),
+    askPlace(malacca),
+    askPlace(sabah),
+    thankMessage.
+
+action(4) :-
+    ask(durian),nl,
+    ask(mangosteen),nl,
+    ask(rambutan),
+    thankMessage.
+
+action(Other):- Other<0;Other>4,write('Invalid input, Please try again'),nl,run.
+
+thankMessage:-
+    write('Thank you for using our expert system'),nl,
+    write('Hope, my service is help to you'),nl,
+    write('Wish you, Have a good day :D'),nl.
+
+reminder(X):- 
+    X=raining,write('Remember to bring an umbrella for outdoor activities, safe drive'); 
+    X=sunny,write('Smile and enjoy outdoor activities :) ');
+    X=cloudy,write('No sunlight available').
+
+planDay(T,W,S,H):-
+    T>=32,weather(S,D,specification(high,H,W)),format('~w on ~w ~n weather : ~w  ~n Humidity : ~w  ~n temperature : high  ~n',[S,D,W,H]);
+     T<30,weather(S,D,specification(low,H,W)),format('~w on ~w ~n weather : ~w  ~n Humidity : ~w  ~n temperature : low  ~n',[S,D,W,H]);
+     T>=30,T<32,weather(S,D,specification(medium,H,W)),format('~w on ~w ~n weather : ~w  ~n Humidity : ~w  ~n temperature : medium  ~n',[S,D,W,H]),
+     reminder(W).
+
+%knowledgebase state 
+stateDescription(penang):-
+    write('Penang allocate at northwest coast of Peninsular Malaysia. Penang has two-part which is Penang Island and Seberang Perai separate with sea, connected to each other by two longest bridges in the country. The length of first bridge is 13.5 km (8.4 mile), second bridge is 8.4 km (5.2 miles). '),nl.
+stateDescription(kedah):-
+    write('Kedah is a medium estimated Malaysian state as far as region and populace. A lot of Kedah has a provincial vibe and known as the rice bowl of Malaysia. Its scene is overwhelmed by rice paddy fields with intermittent limestone slopes overshadowing the encompassing fields, woods, lakes, mountain ranges and excellent islands. '),nl.
+stateDescription(perak):-
+    write('Perak is perhaps the biggest state in Peninsular Malaysia with a space of more than 21,000 sq. km. extending from only north of Selangor right to the Thai boundary. Perak view incorporates the slopes of the Titiwangsa range along its Eastern edge, the strange limestone karst towers outside Ipoh, some breathtaking caverns, the tremendous Temenggor Lake, incredible seashores, and the famous retreat island of Pangkor. '),nl.
+stateDescription(malacca):-
+    write('Malacca is the historical state of Malaysia, rich with heritage buildings, ancient landmarks, and colonial structures.  colonial forces first contacted Malaysia at here, which eventually shaped the country into current economic and political system. '),nl.
+stateDescription(sabah):-
+    write('Sabah is notable as "THE LAND BELOW THE WIND", since it is found only south of the tropical storm inclined district, making it liberated from hurricanes. Home to 32 unique native gatherings that comprise of more than 30 ethnic races, Sabah is regularly depicted as individuals that makes visiting Sabah so special. '),nl.
+%knowledgebase famous destination 
+destinationDescription(kek_lok_si_temple):-
+    write('Kek Lok Si Temple Over 100 years of age and the biggest Buddhist sanctuary in Malaysia, Kek Lok Si is home to a seven-layered pagoda, more than 10,000 Buddha sculptures, and a 37-meter-tall bronze model of Kuan Yin, the Buddhist Goddess of sympathy. Around the primary sculpture the tallest sculpture of Kuan Yin on the planet there are 100 more modest sculptures of the Goddess, every two meters tall. The sanctuary is viewed as a primary journey destination and draws in Buddhists from everywhere Southeast Asia. '),nl.
+destinationDescription(langkawi_sky_bridge):-
+    write('Langkawi Sky Bridge. Langkawi Sky Bridge at 410 feet, is the longest free range and bended extension on the planet. Situated at the highest point of the Machinchang mountain, this link remained extension will give visitor 360-degree perspectives on the Andaman Sea underneath. The extension is just 6 feet wide and bends out over the side of the mountain and is suspended by just a solitary arch. '),nl.
+destinationDescription(pangkor_island):-
+    write('stroll along the excellent seashore or go fishing while on the island. There are numerous inns, resorts and get-away rentals around the island. Along these lines, tourists can remain in this beguiling island and partake in the lovely nightfall. '),nl.
+destinationDescription(christ_church_malacca):-
+    write('build by the Dutch when Malaysian claimed Malacca from the Portuguese, it\'s one of Malacca\'s most characterizing structures. Arranged along Jalan Gereja (otherwise called Church Street) it is an immediately unmistakable block red structure with a colossal white cross at the top. Reclining across from the Stadhuys, Christ Church was worked in 1753 to commend a hundred years of Dutch occupation. The inside of the church has 200-year-old carefully assembled seats, beautifying fanlights and plaques that honor Dutch troopers and local people.'),nl.
+destinationDescription(poring_hot_spring):-
+    write('Poring Hot Spring is entirely of the colossal Kinabalu National Park. The Poring Hot Springs was first evolved by the Japanese during World War II and has advanced continuously to become one of the top traveler places among outsiders and local people. The hot water of the spring contains sulfur are channeled into outside Japanese style showers where can rest visitor drained appendages following the monotonous hours and exhausting move up the Mount Kinabalu. '),nl.
+%knowledgebase famous food
+localFood(char_koay_teow):-
+    write('Penang Char Koay Teow is a MUST-eat roadside food when in Penang. The dish comprises of Koay Teow (white level rice noodle) sautéed with chives, eggs, crunchy bean fledglings and prawns. tourists will not reach an impasse for extraordinary Char Koay Teow in Penang. That is plainly such a mark dish that everybody appears to have assessment of which Char Koay Teow is the most incredible in the city.'),nl.
+localFood(mee_udang):-
+    write('Kedah famous food has Fresh River Mee Udang Tsunami. Mee Udang Tsunami is a profoundly esteemed dish in Kedah. One of the most pursued Kedah\'s noodle dishes, mee udang Tsunami is an exceptional one, accompanies deliciously thick and sweet sauce, stacked with a liberal piece of new prawns. '),nl.
+localFood(chicken_rice):-
+    write('Chicken Rice is a staple food of Ipoh, even now and then having alluded to as Ipoh Chicken Rice. Careful endeavors are placed into setting up this straightforward, yet famous dish of poached chicken and rice, giving the tissue a one-of-a-kind smooth surface joined by the unpretentious, regular kind of chicken upgraded by a light soy sauce'),nl.
+localFood(hainanse_chicken_rice_ball):-
+    write('essentially fragrant chicken rice that had been formed into charming little golf shape size. It is normally being served alongside some delicate but firm chicken meat or fresh cooked pork.'),nl.
+localFood('sinalau_bakas'):-
+    write('Sinalau Bakas, which give a meaning of smoked wild boar, is a famous native dish among the Kadazan-Dusun Community. Kadazan-Dusun is in fact, the largest ethnic in North Borneo. Different parts of wild boar are grilled when making Sinalau Bakas.'),nl.
+%knowledgebase state answer
+stateAnswer(penang):-
+    write('Climate Information about Penang :'),nl,
+    write('Penang climate is warm all year round, Average temperatures around 30 °C. Penang Humidity is around 80%, January and February somewhere around 10%.The Warm months are in May and June. While the cooler months are from December to early February. '),nl,nl,
+    write('Best Time to visit Penang :'),nl,
+    write('Tourists are recommending August, November, and April to May to visit Penang. '),nl.
+
+stateAnswer(kedah):-
+    write('Climate Information about Kedah :'),nl,
+    write('The Climate of Kedah is tropical storm, with a uniform temperature between 21°C to 32°C consistently. Most part dry and warm from January to April, and moist from May to December. Mugginess is reliably high in the marshes, averaging 82-86 percent for every annum.'),nl,nl,
+    write('Best Time to visit Kedah'),nl,
+    write('The Best Time to visit Kedah for hot weather activities is mid-December to March.'),nl.
+
+stateAnswer(perak):-
+    write('Climate Information about Perak :'),nl,
+    write('Climate about Perak is High humidity and high temperatures making the climate pleasant, yet additionally and mostly tropical hot and humid. There is warm to hot lasting through the year and welcomes to wash at normal water temperatures of 29 degrees. In fact of lesser rainfall the best an ideal opportunity for heading out is from January to July. Most precipitation decline from October to November. '),nl,nl,
+    write('Best Time to visit Perak'),nl,
+    write('The best time visit Perak to have warm temperature and limited till mediocre rainfall and is January, February, and May to September.'),nl.
+
+stateAnswer(malacca):-
+    write('Climate Information about Malacca :'),nl,
+    write('Melaka has a tropical rainforest Climate; normal daytime temperature is consistently around 30 degrees Celsius. In the evening and night, the normal temperature will associate with ten degrees lower. The high temperatures joined with a lot of rain makes the normal humidity be very high. '),nl,nl,
+    write('Best Time to visit Malacca'),nl,
+    write('The Best time to visit Malacca is on April, May, and October during the dry season.'),nl.
+
+stateAnswer(sabah):-
+    write('Climate Information about Sabah :'),nl,
+    write('Sabah is perhaps the coldest district in Malaysia with a normal every day high temperature of just 32 degrees centigrade. High mugginess and high temperatures are making the climate lovely on occasion, yet additionally and part of the way tropical sweltering. Climate is warm to hot lasting through the year and welcomes to wash at normal water temperatures of 29 degrees. For lesser rainfall, the best an ideal opportunity for heading out is from February to April. Most precipitation decreases in November. '),nl,nl,
+    write('Best Time to visit Sabah'),nl,
+    write('August and September are the best season to visit the seashores along the east coast while October to November is the best an ideal opportunity to visit Kota Kinabalu in the west as tends to be a lot drier'),nl.
+
+%knowledgebase malaysia fruits
+fruitDescription(durian):-
+    write('Durian is Malaysia fondly regarded as ‘king of fruit’. A durian is about the size of a football, with a thick and sinewy husk covered by sharp spines. The tissue or mash is velvety, white, yellow, or brilliant yellow and tastes solid and smell.'),nl.
+fruitDescription(rambutan):-
+    write('Rambutan is an extremely famous local leafy foods cousin to the Chinese lychee, the rambutan is named in view of its bushy skin. The yellow or red rambutan is plentiful in nutrient C and fundamental minerals. The clear tissue is delicate, sweet, and delicious. The rambutan is an extremely reviving treat in the blistering, moist climate of Malaysia.'),nl.
+fruitDescription(mangosteen):-
+     write('Mangosteens is defined as queen in a plenty of fruits. This sensitive, globular natural fruit has a rugged, purplish-earthy colored skin that encases four blanketed white sections of eatable tissue. Mangosteens have a sweet, wonderful taste and are plentiful in Vitamin C and fundamental minerals. Malaysia is a humid tropical country ideal environment for mangosteen ranches. '),nl.
+fruitAnswer(durian):-
+	write('Climate Requirement:'),nl,
+    write('Durian requirements a climate that is hot (24-32°C) and humidity with 75-80% stickiness. Durian tree won\'t growth when mean everyday temperatures below 22°C. '),nl,nl,
+    write('Recommed time to visit:'),nl,
+    write('June to August and November to January, for meet the durian season :D').
+fruitAnswer(rambutan):-
+	write('Climate Requirement:'),nl,
+    write('Rambutan Climate requirement is temperature 21-30 °C not below 10 °C, and humidity of 75-80% '),nl,nl,
+    write('Recommed time to visit:'),nl,
+    write('June to August and a more modest one from November to January, for meet the Rambutan Season :D').
+fruitAnswer(mangosteen):-
+	write('Climate Requirement:'),nl,
+    write('Malaysia is a humid tropical country ideal environment for mangosteen ranches. Climate desirable for mangosteen plantation is temperature 25-35°C, growth retarded while below 20°C, humidity is high about range 80.2-84.9%. '),nl,nl,
+    write('Recommed time to visit:'),nl,
+    write('June to August and smaller season December to January, for meet the Mangosteens Season :D').
+
+%product rule for quesiton and answer
+ask(Question) :-
+write('--------------------------------------------------------------------------------------------------------------------------------------------------------------'),nl,
+fruitDescription(Question),nl,
+write('Do you like :'),
+write(Question),
+write('? '),
+read(Response), nl,
+member(Response,[yes,y,no,n]),
+(Response == no ; Response == n),!;fruitAnswer(Question).
+
+askPlace(S) :-
+write('--------------------------------------------------------------------------------------------------------------------------------------------------------------'),nl,
+write(S),write(':'),nl,nl,
+stateDescription(S),nl,
+write('* Famous Travel Destination:'),
+destination(S,X),
+write(X),write(' *'),nl,
+destinationDescription(X),nl,
+write('* Famous Food:'),
+food(S,Y),
+write(Y),write(' *'),nl,
+localFood(Y),nl,
+write('Do you interest to '),
+write(S),
+write(' ? (yes/no)'),
+read(Answer),
+member(Answer,[yes,y,no,n]),
+(Answer==no;Answer==n),!;stateAnswer(S),nl,
+write('Enter ok to proceed.'),nl,
+read(Proceed),(Proceed==ok).
+
+    
+
+
+
+
+
+
+
+    

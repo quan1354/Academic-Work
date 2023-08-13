@@ -1,0 +1,284 @@
+
+<html>
+   <head>  
+      <title>TosBURGER&trade; </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <!--layout adjustment -->
+    <style type='text/css'>
+
+      .header{
+       text-align: right;
+       padding: 90px;
+       background-image: url(header.jpg);
+      }
+
+        /* The navbar container */
+      .topnav {
+       overflow: hidden;
+       background-color: #333;
+      }
+
+      /* Navbar links */
+      .topnav a {
+       float:left;
+       display: block;
+       color: #f2f2f2;
+       text-align: center;
+       padding:16px    85px;
+       text-decoration: none;
+      }
+
+      /* Links - change color on hover */
+      .topnav a:hover {
+       background-color: #ddd;
+       color: black;
+      }
+
+      .topnav a.active {
+       background-color: #2196F3;
+       color: white;
+      }
+
+      .topnav input[type=text] {
+       float: right;
+       padding: 6px;
+       margin-top: 8px;
+       margin-right: 16px;
+       border: none;
+       font-size: 17px;
+      }
+
+      .overlay {
+       height: 100%;
+       width: 0;
+       position: fixed;
+       z-index: 1;
+       top: 0;
+       left: 0;
+       background-color: rgb(0,0,0);
+       background-color: rgba(0,0,0, 0.9);
+       overflow-x: hidden;
+       transition: 0.5s;
+      }
+
+      .overlay-content {
+       position: relative;
+       top: 25%;
+       width: 100%;
+       text-align: center;
+       margin-top: 30px;
+      }
+
+      .overlay a {
+       padding: 8px;
+       text-decoration: none;
+       font-size: 36px;
+       color: #818181;
+       display: block;
+       transition: 0.3s;
+      }
+
+      .overlay a:hover, .overlay a:focus {
+       color: #f1f1f1;
+      }
+
+      .overlay .closebtn {
+       position: absolute;
+       top: 20px;
+       right: 45px;
+       font-size: 60px;
+      }
+
+      .mainspace{
+       float: right;
+       width: 80%;
+       margin-left: -1474px;
+       background-color: white;
+       height: 100%;
+      }
+
+      .leftspace{
+        float: left;
+        width: 19%;;
+       background-color: grey;
+       height: 100%;
+      }
+
+      .footer {
+       position: fixed;
+       left: 0;
+       bottom: 0;
+       width: 100%;
+       height: 5%;
+       background-color: rgb(29, 27, 27);
+       color: white;
+       text-align: center;
+      }
+
+      .button {   
+       display: inline-block;
+       border-radius: 4px;
+       background-color: #110d0cb4;
+       border: none;
+       color: #FFFFFF;
+       text-align: center;
+       font-size: 15px;
+        padding: 7px;
+       width: 100px;
+       transition: all 0.5s;
+       cursor: pointer;
+       margin: 5px;
+      }
+
+      .button span {
+       cursor: pointer;
+       display: inline-block;
+        position: relative;
+        transition: 0.5s;
+      }
+
+      .button span:after {
+       content: '\00bb';
+         position: absolute;
+       opacity: 0;
+       top: 0;
+        right: -20px;
+       transition: 0.5s;
+      }
+
+      .button:hover span {
+       padding-right: 25px;
+      }   
+
+      .button:hover span:after {
+        opacity: 1;
+       right: 0;
+      }
+      body {
+        display: block;
+        margin: 0px;
+      }
+
+      box {
+        border: 2px solid black;
+        outline: rgb(0, 0, 0) solid 1px;
+        margin: auto;  
+        padding: 20px;
+        text-align: center;
+      }
+    </style>
+
+   </head>
+
+  <body>
+    <div class="header"> <!--item in header-->
+      <a href="Homepage.html">
+         <img align ="left" src="Logo.png" height="100px" width="150px">  <!--LOGO-->
+      </a> 
+      <a href="Login.html"><button class="button" ><span>Login</span></button></a>
+    &emsp;
+    <a href="mycart.html"><img  align="right" src="carticon.png" width="4%" height="6%" ></a>
+    <a href="Memberprofile.html"><img  align="right" src="login icon.png" width="80px" height="80px" ></a> <!--Login icon-->
+       
+   </div>
+   <div class="topnav"> <!--top nav bar-->
+     <a style="font-weight: bold;" href="About us.html">About Us</a>
+     <a style="font-weight: bold;" href="New_Alerts.html">New Alert</a>
+     <a style="font-weight: bold;" href="gallery.html">Gallery</a>
+     <a style="font-weight: bold;" href="luckydraw.html">Lucky Draw</a>
+     <a style="font-weight: bold;" href="Reservation.html">Reservation</a>
+     <input type="text" placeholder="Search..">
+  </div>
+
+  <div id="myNav" class="overlay"> <!--Contain of curtain menu-->
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+      <div class="overlay-content">
+         <a href="Homepage.html">Homepage</a>
+         <a href="About us.html">About Us</a>
+         <a href="gallery.html">Gallery</a>
+         <a href="Feedback.html">Feedback</a>
+         <a href="Burgerclass.html">Burger class</a>
+         <a href="Location.html">Location</a>
+         <a href="jobvacancy.html">Job Vancancy</a>
+      </div>
+     </div>
+
+    <div class="leftspace">  <!--Contain of leftspace-->
+     
+      <!--Function of menu-->
+     <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; </span> 
+
+     <script>
+        function openNav() {
+          document.getElementById("myNav").style.width = "100%";
+        }
+        
+        function closeNav() {
+          document.getElementById("myNav").style.width = "0%";
+          }
+      </script>
+      <div align="center"><br/><br/>&emsp;&emsp;&emsp;<box><b>LUCKY DRAW</b></box></div>
+      <div align="center">
+        <br/> <br/> <br/>
+        <form >
+          <label for="voucher" style="font-size: large;"><b>Please Enter Voucher Number :</b></label>
+          <input type="text" id="voucher" name="voucher" value="" style="height: 30px;width: 230px;">
+        </form>
+        <button class="button"><span>REDEEM</span></button>
+        <br/> <br/> <br/> <br/><br/><br/>
+        <form >
+          <label for="times" style="font-size: large;"><b>LUCKY DRAW x </b></label>
+          <input type="text" id="times" name="times" value="" style="height: 30px;width: 40px;">
+          <span style="font-size: large;"><b>times</b></span>
+        </form>
+      </div>
+    </div>
+
+      <div class="mainspace"> <!--content on main space-->
+        <br/><br/><br/><br/><br/><br/><br/><br/>
+        <blockquote>
+         <box align="left">&emsp;Try next time !&emsp;&nbsp;</box> &emsp;&emsp;&emsp;&emsp;&emsp;<box align="left">&emsp;RM 10 Voucher !&nbsp;&nbsp;</box> &emsp;&emsp;&emsp;&emsp;&emsp; <box align="left">&emsp;Try next time !&emsp;&nbsp;</box>
+         <br/><br/> <br/><br/><br/><br/><br/>
+         <box align="left">Free Classic burger !</box> &emsp;&emsp;&emsp;&emsp;&emsp; <box align="left">&emsp;Free any one set !&nbsp;</box>  &emsp;&emsp;&emsp;&emsp;&emsp;<box align="left">&nbsp;Special key chain !&nbsp;</box>
+         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<button class="button" style="height: 70px;width: 150px;font-size: x-large;"><span>SPIN !</span></button>
+         <br/><br/> <br/><br/><br/><br/><br/>
+         <box align="left">&emsp;RM 20 Voucher !&nbsp;&nbsp;</box> &emsp;&emsp;&emsp;&emsp;&emsp; <box align="left">&emsp;Try next time !&emsp;&nbsp;</box>  &emsp;&emsp;&emsp;&emsp;&emsp;<box align="left">&emsp;RM 5 Voucher !&emsp;</box>
+
+        </blockquote>
+        
+      
+      </div> 
+
+      <div class="footer"> <!--footer-->
+        
+        &emsp;
+        <a style="color: white;">|</a>
+        &emsp; &emsp;&emsp;
+        <a style="font-size: 25px;color: seashell;" href="ContactUs.html" >Contact us</a>
+        &emsp; &emsp;&emsp;
+        <a style="color: white;">|</a>
+        &emsp; &emsp;&emsp;
+        <a style="font-size: 25px;color: seashell;" href="Location.html" >Location</a>
+        &emsp; &emsp;&emsp;
+        <a style="color: white;">|</a>
+        &emsp; &emsp;&emsp;
+        <a style="font-size: 25px;color: seashell;" href="jobvacancy.html" >Job Vancancy</a>
+        &emsp; &emsp;&emsp;
+        <a style="color: white;">|</a>
+        &emsp; &emsp;&emsp;
+        <a style="font-size: 25px;color: seashell;" href="faq.html" >FAQ</a>
+        &emsp; &emsp;&emsp;
+        <a style="color: white;">|</a>
+        &emsp; &emsp;&emsp;
+        <a style="font-size: 25px;color: seashell;" href="termandconditionsENG.html" >Term & Conditions</a>
+        &emsp; &emsp;&emsp;
+        <a style="color: white;">|</a>
+        &emsp;
+        <span>Follow Us :</span>
+        <i style="font-size:20px" class="fa">&#xf082;</i>
+        <i style="font-size:20px" class="fa">&#xf16d;</i>
+        <i style="font-size:24px" class="fa">&#xf099;</i>
+      </div>
+  </body>
+</html>

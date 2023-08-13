@@ -1,0 +1,83 @@
+SQL> SET FEEDBACK ON
+SQL> SET LINESIZE 200
+SQL> SET PAGESIZE 200
+SQL> SET SERVEROUTPUT ON
+SQL> 
+SQL> CREATE OR REPLACE TRIGGER scheduleValidation
+  2  BEFORE INSERT ON schedule
+  3  FOR EACH ROW
+  4  
+  5  DECLARE
+  6  
+  7  	     v_driver_status driver.status % TYPE;
+  8  	     v_dob DATE;
+  9  	     v_eno employee.eno%TYPE;
+ 10  	     v_lorry_status lorry.status%TYPE;
+ 11  
+ 12  	     e_invalid_age EXCEPTION;
+ 13  	     e_invalid_date EXCEPTION;
+ 14  	     e_invalid_driver_status EXCEPTION;
+ 15  	     e_invalid_lorry_status EXCEPTION;
+ 16  	     PRAGMA EXCEPTION_INIT(e_invalid_age,-20001);
+ 17  	     PRAGMA EXCEPTION_INIT(e_invalid_date,-20002);
+ 18  	     PRAGMA EXCEPTION_INIT(e_invalid_driver_status,-20003);
+ 19  	     PRAGMA EXCEPTION_INIT(e_invalid_lorry_status,-20004);
+ 20  
+ 21  BEGIN
+ 22  	     --get eno and status of driver from driver table using the license no
+ 23  	     SELECT eno,status INTO v_eno,v_driver_status
+ 24  	     FROM driver
+ 25  	     WHERE lno= :NEW.lno;
+ 26  
+ 27  	     --get the dob of driver to calculate the age
+ 28  	     SELECT dob INTO v_dob
+ 29  	     FROM employee
+ 30  	     WHERE eno = v_eno;
+ 31  
+ 32  	     --get the status of lorry with registration no
+ 33  	     SELECT status INTO v_lorry_status
+ 34  	     FROM lorry
+ 35  	     WHERE regno = :NEW.regno;
+ 36  
+ 37  	     --check if driver is more than 55 years old
+ 38  	     --raise error if more than 55 years old
+ 39  	     IF TRUNC((SYSDATE - v_dob)/365.25) >= 55 THEN
+ 40  		     RAISE e_invalid_age;
+ 41  	     END IF;
+ 42  
+ 43  	     --check if the schedule data is less than or equal to 3 day from now (raise error if yes)
+ 44  	     IF TRUNC(:new.schedule_date - SYSDATE) <= 3 THEN
+ 45  		     RAISE e_invalid_date;
+ 46  	     END IF;
+ 47  
+ 48  
+ 49  	     --check if driver and lorry in available status
+ 50  	     IF UPPER(v_driver_status)!= UPPER('Available') THEN
+ 51  		     RAISE e_invalid_driver_status;
+ 52  	     ELSIF UPPER(v_lorry_status)!= UPPER('Available') THEN
+ 53  		     RAISE e_invalid_lorry_status;
+ 54  	     ELSE
+ 55  		     DBMS_OUTPUT.PUT_LINE('The schedule had been created successfully.');
+ 56  	     END IF;
+ 57  
+ 58  EXCEPTION
+ 59  	     WHEN e_invalid_age THEN
+ 60  		     RAISE_APPLICATION_ERROR(-20001,'The driver age should less than 55');
+ 61  	     WHEN e_invalid_date THEN
+ 62  		     RAISE_APPLICATION_ERROR(-20002,'The schedule date should be more than 3 day start from today');
+ 63  	     WHEN e_invalid_driver_status THEN
+ 64  		     RAISE_APPLICATION_ERROR(-20003,'The driver is not in available status');
+ 65  	     WHEN e_invalid_lorry_status THEN
+ 66  		     RAISE_APPLICATION_ERROR(-20004,'The lorry is not in available status');
+ 67  	     WHEN NO_DATA_FOUND THEN
+ 68  		     RAISE_APPLICATION_ERROR(-20005,'No such data found!'||SQLERRM);
+ 69  	     WHEN OTHERS THEN
+ 70  		     RAISE_APPLICATION_ERROR(-20006,'Failed to insert data!'||SQLERRM);
+ 71  
+ 72  END;
+ 73  /
+
+Trigger created.
+
+SQL> 
+SQL> SPOOL OFF

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/FoodFragment"
+        android:title="@string/noodle" />
+    <item
+        android:id="@+id/riceFragment"
+        android:title="@string/rice" />
+    <item
+        android:id="@+id/meatFragment"
+        android:title="@string/meat" />
+</menu>

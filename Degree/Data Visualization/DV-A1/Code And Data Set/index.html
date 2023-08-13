@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            .legend{
+                font-family: sans-serif;
+                font-size: 18px;
+                text-anchor: end;
+            }
+            .grid path {
+            stroke-width: 0;
+            }
+            .grid .tick line {
+            stroke: #050505;
+            stroke-opacity: 0.4;
+            }
+            .chart{
+                border-radius: 20px;
+                border:black solid 2px;
+                width:max-content;
+                
+            }
+        </style>
+    </head>
+    <body>
+        <h2 style="margin-left:20px;font-family: Arial, Helvetica, sans-serif;font-size: 30px">Minimum Inhibitory Concentration (MIC) of 3 Antibiotics On 16 Bacteria</h2>
+        <div class="chart" >
+            <svg width="2200" height="700"></svg>
+        </div>
+        <script src="https://d3js.org/d3.v4.min.js"></script>
+        <script>
+
+        
+        var xAxisLabel = "Bacteria";
+        var svg = d3.select("svg"),
+            margin = {top: 105, right: 20, bottom: 200, left: 80},
+            width = +svg.attr("width") - margin.left - margin.right,
+            height = +svg.attr("height") - margin.top - margin.bottom,
+            g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+        var x0 = d3.scaleBand()
+            .rangeRound([0, width])
+            .paddingInner(0.1);
+        var x1 = d3.scaleBand()
+            .padding(0.05);
+        //var placer = [0.0001,0.001,0.01,1,10,100,1000]
+        var y = d3.scaleLog()
+            .domain([0.0001,1000])
+            .range([height, 0])
+            //.base(10);
+
+        var z = d3.scaleOrdinal()
+            .range(["#D68910", "#2E86C1", "#8E44AD"]);
+
+           
+d3.csv("data_anti.csv", function(error, data) {
+        if (error) throw error;
+        var antibiotics = ["Streptomycin", "Neomycin", "Penicilin"];
+data.forEach(function(d) {
+  d.antibiotics = antibiotics.map(function(name) { return {name: name, value: +d[name], gs: d['Gram Staining']}; });
+});
+
+        g.append("rect")
+            .attr("width", 1185)
+            .attr("height", height)
+             .attr("fill", "red")
+             .attr("opacity", 0.2)
+        g.append("rect")
+            .attr("x",1185)
+            .attr("width", 918)
+            .attr("height", height)
+            .attr("fill", "blue")
+            .attr("opacity", 0.2)
+            
+        g.append("text")
+            .attr("transform","translate(550,-10)")
+            .text("NEGATIVE")
+            .attr("class","legend")
+            .attr("fill","darkred")
+        
+        g.append("text")
+            .attr("transform","translate(1650,-10)")
+            .text("POSITIVE")
+            .attr("class","legend")
+            .attr("fill","darkblue")
+       
+        g.append('g')
+        .attr('class', 'grid')
+        .call(d3.axisLeft()
+        .scale(y)
+        .tickSize(-width, 0, 0)
+        .tickFormat('')
+        .tickValues([0.001,0.01,0.1,1,10,100,1000]))
+        
+        console.log(data)
+        data.sort(function(a, b){ return d3.descending(a["Gram Staining"] + a.Bacteria, b["Gram Staining"] + b.Bacteria); }).reverse()
+        var keys = data.columns.slice(1,4);
+        x0.domain(data.map(function(d) { return d.Bacteria; }));
+        x1.domain(keys).rangeRound([0, x0.bandwidth()]);
+
+        var selection =
+            g.append("g").selectAll("g")
+            .data(data)
+            .enter().append("g")
+            .attr("transform", function(d) { return "translate(" + x0(d.Bacteria) + ",0)"; })
+            selection.selectAll("rect")
+            .data(function(d) { return keys.map(function(key) { return {key: key, value: d[key]}; }); })
+            .enter().append("rect")
+            .attr("x", function(d) { return x1(d.key); })
+            .attr("y", function(d) { return y(d.value); })
+            .attr("width", x1.bandwidth())
+            .attr("height", function(d) { return height - y(d.value); })
+            .attr("fill", function(d) { return z(d.key); });
+        selection.selectAll("text")
+         .data(function(d) { return keys.map(function(key) { return {key: key, value: d[key]}; }); })
+         .enter().append("text")
+         .attr("x", d => x1(d.key))
+        .attr("y", d =>  y(d.value) + 25)
+        .style('font-size', '0.9em')
+        .style("font-family","sans-serif")
+        .style("font-weight","bold")
+        //.style("text-anchor","middle")
+        .text(d => Number.parseFloat(d.value))
+
+        // X-Axis
+        g.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x0))
+            .selectAll("text")	
+                .style("font-size","15px")
+                .style("text-anchor", "end")
+                .style("font-weight","bold")
+                .style("font-family","sans-serif")
+                .attr("dy", "1em")
+                .attr("transform", "rotate(-30)");
+        
+        // Y-Axis
+        g.append("g")
+            .style("font-size","18px")
+            .call(d3.axisLeft(y).ticks(8, d3.format(".4")).tickSize(5))
+            .call(g => g.append("text")
+                .attr("x", -60)
+                .attr("y", -30)
+                .attr("fill", "black")
+                .style("font-size","20px")
+                .style("font-weight","bold")
+                .style("font-family","sans-serif")
+                .attr("text-anchor", "start")
+                .text("Minimum Inhibitory Concentration (MIC)"));
+
+        g.append("text")
+            .text("Bacteria")
+            .attr("x",width/2)
+            .attr("y","28em")
+            .style("font-size","20px")
+            .style("font-weight","bold")
+            .style("font-family","sans-serif")
+            .attr("fill", "black")
+            .attr("text-anchor", "start");
+        
+
+        var legend = g.append("g")
+            .attr("class","legend")
+            .attr("transform", "translate(0,-90)")
+            .selectAll("g")
+            .data(keys.slice().reverse())
+            .enter().append("g")
+            .attr("transform", function(d, i) { return "translate(0," + i * 30 + ")"; });
+            
+
+        legend.append("rect")
+            .attr("x", width - 19)
+            .attr("width", 19)
+            .attr("height", 19)
+            .attr("fill", z);
+
+        legend.append("text")
+            .attr("x", width - 24)
+            .attr("y", 9.5)
+            .attr("dy", "0.32em")
+            .text(function(d) { return d; });
+
+        });
+
+
+        </script>
+    </body>
+</html>

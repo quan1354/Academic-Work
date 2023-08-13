@@ -1,0 +1,533 @@
+<html>
+   <head>  
+      <title>TosBURGER&trade; </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <!--layout adjustment -->
+    <style type='text/css'>
+
+      .header{
+       text-align: right;
+       padding: 90px;
+       background-image: url(header.jpg);
+      }
+
+        /* The navbar container */
+      .topnav {
+       overflow: hidden;
+       background-color: #333;
+      }
+
+      /* Navbar links */
+      .topnav a {
+       float:left;
+       display: block;
+       color: #f2f2f2;
+       text-align: center;
+       padding:16px    85px;
+       text-decoration: none;
+      }
+
+      /* Links - change color on hover */
+      .topnav a:hover {
+       background-color: #ddd;
+       color: black;
+      }
+
+      .topnav a.active {
+       background-color: #2196F3;
+       color: white;
+      }
+      /*seach bar*/
+      .topnav input[type=search] {
+       float: right;
+       padding: 6px;
+       margin-top: 8px;
+       margin-right: 16px;
+       border: none;
+       font-size: 17px;
+      }
+
+      .overlay {
+       height: 100%;
+       width: 0;
+       position: fixed;
+       z-index: 1;
+       top: 0;
+       left: 0;
+       background-color: rgb(0,0,0);
+       background-color: rgba(0,0,0, 0.9);
+       overflow-x: hidden;
+       transition: 0.5s;
+      }
+
+      .overlay-content {
+       position: relative;
+       top: 25%;
+       width: 100%;
+       text-align: center;
+       margin-top: 30px;
+      }
+
+      .overlay a {
+       padding: 8px;
+       text-decoration: none;
+       font-size: 36px;
+       color: #818181;
+       display: block;
+       transition: 0.3s;
+      }
+
+      .overlay a:hover, .overlay a:focus {
+       color: #f1f1f1;
+      }
+
+      .overlay .closebtn {
+       position: absolute;
+       top: 20px;
+       right: 45px;
+       font-size: 60px;
+      }
+
+      .mainspace{
+       float: left;
+       width: 60%;
+       margin-left:auto;
+       background-color: white;
+       height: 100%;
+      }
+
+      .leftspace{
+        float: left;
+        width:20%;
+        background-color: rgba(128, 128, 128, 0.575);
+        height: 100%;
+      }
+
+      .rightspace{
+        float: right;
+        width:20%;
+        background-color: rgba(128, 128, 128, 0.575);
+        height: 100%;
+        text-align: center;
+      }
+
+      .footer {
+       position: fixed;
+       left: 0;
+       bottom: 0;
+       width: 100%;
+       height: 5%;
+       background-color: rgb(29, 27, 27);
+       color: white;
+       text-align: center;
+      }
+
+      body {
+       padding: 0px;
+       margin: 0px;
+      }
+
+      .button {   
+       display: inline-block;
+       border-radius: 4px;
+       background-color: #110d0cb4;
+       border: none;
+       color: #FFFFFF;
+       text-align: center;
+       font-size: 15px;
+        padding: 7px;
+        width: 100px;
+       transition: all 0.5s;
+       cursor: pointer;
+       margin: 5px;
+      }
+
+      .button span {
+       cursor: pointer;
+       display: inline-block;
+        position: relative;
+        transition: 0.5s;
+      }
+
+      .button span:after {
+       content: '\00bb';
+         position: absolute;
+       opacity: 0;
+       top: 0;
+        right: -20px;
+       transition: 0.5s;
+      }
+
+      .button:hover span {
+       padding-right: 25px;
+      }   
+
+      .button:hover span:after {
+        opacity: 1;
+       right: 0;
+      }
+      /*dropdown select*/
+      .custom-select {
+        position: relative;
+        font-family: 'Times New Roman', Times, serif;
+      }
+
+      .custom-select select {
+        display: none; /*hide original SELECT element:*/
+      }
+
+      .select-selected {
+        background-color: rgba(3, 4, 5, 0.589);
+      }
+
+      /*style the arrow inside the select element:*/
+      .select-selected:after {
+        position: absolute;
+        content: "";
+        top: 14px;
+        right: 10px;
+        width: 0;
+        height: 0;
+        border: 6px solid transparent;
+        border-color: rgba(3, 4, 5, 0.589) transparent transparent transparent;
+      }
+
+      /*point the arrow upwards when the select box is open (active):*/
+      .select-selected.select-arrow-active:after {
+        border-color: transparent transparent rgba(3, 4, 5, 0.589) transparent;
+        top: 7px;
+      }
+
+      /*style the items (options), including the selected item:*/
+      .select-items div,.select-selected {
+        color: #ffffff;
+        padding: 8px 16px;
+        border: 1px solid transparent;
+        border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+        cursor: pointer;
+        user-select: none;
+      }
+
+      /*style items (options):*/
+      .select-items {
+        position: absolute;
+        background-color: rgba(3, 4, 5, 0.589);
+        top: 100%;
+        left: 0;
+        right: 0;
+        z-index: 99;
+      }
+
+      /*hide the items when the select box is closed:*/
+      .select-hide {
+        display: none;
+      }
+
+      .select-items div:hover, .same-as-selected {
+        background-color: rgba(0, 0, 0, 0.1);
+      }
+
+      /*input box */ 
+      input[type=text] {
+        width: 20%;
+        padding: 2px 6px;
+        margin: 8px 0;
+        box-sizing: border-box;
+        border: 3px solid #ccc;
+        -webkit-transition: 0.5s;
+        transition: 0.5s;
+        outline: none;
+      }
+
+      input[type=text]:focus {
+        border: 3px solid #555;
+      }
+
+      /* The container */
+      .container {
+        display: block;
+        position: relative;
+        padding-left: 35px;
+        margin-bottom: 12px;
+        cursor: pointer;
+        left: 20%;
+        font-size: 22px;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      /* default checkbox */
+      .container input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+      }
+
+      /* Create a custom checkbox */
+      .checkmark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 25px;
+        width: 25px;
+        background-color: #eee;
+      }
+
+      /* On mouse-over, add a grey background color */
+      .container:hover input ~ .checkmark {
+        background-color: #ccc;
+      }
+
+      /* When the checkbox is checked, add a blue background */
+      .container input:checked ~ .checkmark {
+        background-color: black;
+      }
+
+      /* Create the checkmark/indicator (hidden when not checked) */
+      .checkmark:after {
+        content: "";
+        position: absolute;
+        display: none;
+      }
+
+      /* Show the checkmark when checked */
+      .container input:checked ~ .checkmark:after {
+        display: block;
+      }
+
+      /* Style the checkmark/indicator */
+      .container .checkmark:after {
+        left: 9px;
+        top: 5px;
+        width: 5px;
+        height: 10px;
+        border: solid white;
+        border-width: 0 3px 3px 0;
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+      }
+
+    </style>
+
+   </head>
+
+   <body>
+
+    <div class="header"> <!--item in header-->
+      <a href="Homepage.html">
+         <img align ="left" src="Logo.png" height="100px" width="150px">  <!--LOGO-->
+      </a> 
+      <a href="Login.html"><button class="button"><span>Login</span></button></a>
+    &emsp;
+    <a href="mycart.html"><img  align="right" src="carticon.png" width="4%" height="6%" ></a>
+    <a href="Memberprofile.html"><img  align="right" src="login icon.png" width="80px" height="80px" ></a> <!--Login icon-->
+       
+   </div>
+
+   <div class="topnav"> <!--top nav bar-->
+    <a style="font-weight: bold;" href="About us.html">About Us</a>
+    <a style="font-weight: bold;" href="New_Alerts.html">New Alert</a>
+    <a style="font-weight: bold;" href="gallery.html">Gallery</a>
+    <a style="font-weight: bold;" href="luckydraw.html">Lucky Draw</a>
+    <a style="font-weight: bold;" href="Reservation.html">Reservation</a>
+    <input type="text" placeholder="Search..">
+ </div>
+
+     <div class="leftspace"> <!--Left space-->
+       <!--Function of menu-->
+       <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; </span> 
+
+       <script>
+          function openNav() {
+            document.getElementById("myNav").style.width = "100%";
+          }
+     
+          function closeNav() {
+            document.getElementById("myNav").style.width = "0%";
+           }
+        </script>
+       <div id="myNav" class="overlay"> <!--Contain of curtain menu-->
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <div class="overlay-content">
+           <a href="Homepage.html">Homepage</a>
+           <a href="About us.html">About Us</a>
+           <a href="gallery.html">Gallery</a>
+           <a href="Feedback.html">Feedback</a>
+           <a href="Burgerclass.html">Burger class</a>
+           <a href="Location.html">Location</a>
+           <a href="jobvacancy.html">Job Vancancy</a>
+        </div>
+       </div>
+       <p align="center">YOUR ORDER</p>
+       <hr/>
+       <p>Subtotal : RM</p>
+       <p>Delivery Charge : RM</p>
+       <hr/>
+       <br/>
+       <p>Service charge (6%) : RM</p>
+       <hr/>
+       <p> TOTAL :</p>
+       <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><hr/><a>RM</a><br/><br/><hr/><hr/>
+      </div>
+
+      <div class="mainspace"> <!--content on main space-->
+        <h1 style="text-align: center;">PAYMENT</h1>
+         <h2>&emsp;SELECT PAYMENT METHOD :</h2>
+         <ol>
+           <li><button class="button" style="vertical-align:middle;width: 20%;"><span>PAYPAL</span></button> </li>
+           <li><a>Credit / Debit Card :</a>
+           
+            <div class="custom-select" style="width:200px;">
+              <select>
+                <option value="0">Select Bank:</option>
+                <option value="1">Alliance</option>
+                <option value="2">Public Bank</option>
+                <option value="3">Maybank</option>
+                <option value="4">Hong Leong Bank</option>
+              </select>
+            </div>
+            <script>
+              var x, i, j, selElmnt, a, b, c;
+              /*look for any elements with the class "custom-select":*/
+              x = document.getElementsByClassName("custom-select");
+              for (i = 0; i < x.length; i++) {
+                selElmnt = x[i].getElementsByTagName("select")[0];
+                /*for each element, create a new DIV that will act as the selected item:*/
+                a = document.createElement("DIV");
+                a.setAttribute("class", "select-selected");
+                a.innerHTML = selElmnt.options[selElmnt.selectedIndex].innerHTML;
+                x[i].appendChild(a);
+                /*for each element, create a new DIV that will contain the option list:*/
+                b = document.createElement("DIV");
+                b.setAttribute("class", "select-items select-hide");
+                for (j = 1; j < selElmnt.length; j++) {
+                  /*for each option in the original select element,
+                  create a new DIV that will act as an option item:*/
+                  c = document.createElement("DIV");
+                  c.innerHTML = selElmnt.options[j].innerHTML;
+                  c.addEventListener("click", function(e) {
+                      /*when an item is clicked, update the original select box,
+                      and the selected item:*/
+                      var y, i, k, s, h;
+                      s = this.parentNode.parentNode.getElementsByTagName("select")[0];
+                      h = this.parentNode.previousSibling;
+                      for (i = 0; i < s.length; i++) {
+                        if (s.options[i].innerHTML == this.innerHTML) {
+                          s.selectedIndex = i;
+                          h.innerHTML = this.innerHTML;
+                          y = this.parentNode.getElementsByClassName("same-as-selected");
+                          for (k = 0; k < y.length; k++) {
+                            y[k].removeAttribute("class");
+                          }
+                          this.setAttribute("class", "same-as-selected");
+                          break;
+                        }
+                      }
+                      h.click();
+                  });
+                  b.appendChild(c);
+                }
+                x[i].appendChild(b);
+                a.addEventListener("click", function(e) {
+                    /*when the select box is clicked, close any other select boxes,
+                    and open/close the current select box:*/
+                    e.stopPropagation();
+                    closeAllSelect(this);
+                    this.nextSibling.classList.toggle("select-hide");
+                    this.classList.toggle("select-arrow-active");
+                  });
+              }
+              function closeAllSelect(elmnt) {
+                /*a function that will close all select boxes in the document,
+                except the current select box:*/
+                var x, y, i, arrNo = [];
+                x = document.getElementsByClassName("select-items");
+                y = document.getElementsByClassName("select-selected");
+                for (i = 0; i < y.length; i++) {
+                  if (elmnt == y[i]) {
+                    arrNo.push(i)
+                  } else {
+                    y[i].classList.remove("select-arrow-active");
+                  }
+                }
+                for (i = 0; i < x.length; i++) {
+                  if (arrNo.indexOf(i)) {
+                    x[i].classList.add("select-hide");
+                  }
+                }
+              }
+              /*if the user clicks anywhere outside the select box,
+              then close all select boxes:*/
+              document.addEventListener("click", closeAllSelect);
+              </script>
+             <form>
+              <label for="fname">Card Number</label>
+              <input type="text" id="fname" name="fname" value="">
+              <label for="lname">Security Code</label>
+              <input type="text" id="lname" name="lname" value="">
+              <br/>
+              <label for="lname">Expired Date</label>
+              <input type="text" id="lname" name="lname" value="">
+             </form>
+           </li>
+           <li><button class="button" style="vertical-align:middle;width: 20%;"><span>Online Banking</span></button></li>
+           <li><button class="button" style="vertical-align:middle;width: 20%;"><span>Touch N Go Wallet</span></button></li>
+           <li><button class="button" style="vertical-align:middle;width: 20%;"><span>GrabPay</span></button></li>
+           <li><button class="button" style="vertical-align:middle;width: 20%;"><span>Cash</span></button>(Please prepare enough cash)</li>
+         </ol>
+         <br/><br/><br/> 
+         <label  class="container" style="font-size: medium;;">&emsp;I Agree Term & Conditions 
+          <input type="checkbox" checked="checked">
+          <span class="checkmark"></span>
+          <a href="termandconditionsENG.html">click here to read term&conditions</a>
+        </label>
+      </div> 
+
+      <div class="rightspace">
+        <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> 
+        <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> 
+        <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/>
+        <a href="Delivery Order.html"> <button  class="button" style="vertical-align:middle;width: 80%;"><span>Back To Delivery Order</span></button></a>
+       <br/>
+       <a href="receipt.html"> <button class="button" style="vertical-align:middle;width: 80%;"><span>PROCEED</span></button></a>
+       
+      </div>
+
+      <div class="footer"> <!--footer-->
+        
+        &emsp;
+        <a style="color: white;">|</a>
+        &emsp; &emsp;&emsp;
+        <a style="font-size: 25px;color: seashell;" href="ContactUs.html" >Contact us</a>
+        &emsp; &emsp;&emsp;
+        <a style="color: white;">|</a>
+        &emsp; &emsp;&emsp;
+        <a style="font-size: 25px;color: seashell;" href="Location.html" >Location</a>
+        &emsp; &emsp;&emsp;
+        <a style="color: white;">|</a>
+        &emsp; &emsp;&emsp;
+        <a style="font-size: 25px;color: seashell;" href="jobvacancy.html" >Job Vancancy</a>
+        &emsp; &emsp;&emsp;
+        <a style="color: white;">|</a>
+        &emsp; &emsp;&emsp;
+        <a style="font-size: 25px;color: seashell;" href="faq.html" >FAQ</a>
+        &emsp; &emsp;&emsp;
+        <a style="color: white;">|</a>
+        &emsp; &emsp;&emsp;
+        <a style="font-size: 25px;color: seashell;" href="termandconditionsENG.html" >Term & Conditions</a>
+        &emsp; &emsp;&emsp;
+        <a style="color: white;">|</a>
+        &emsp;
+        <span>Follow Us :</span>
+        <i style="font-size:20px" class="fa">&#xf082;</i>
+        <i style="font-size:20px" class="fa">&#xf16d;</i>
+        <i style="font-size:24px" class="fa">&#xf099;</i>
+      </div>
+   </body>
+</html>

@@ -1,0 +1,26 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+buildscript {
+    ext {
+        archLifecycleVersion = '1.1.1'
+        gradleVersion = '4.1.0'
+        supportlibVersion = '1.2.0'
+        dataBindingCompilerVersion = gradleVersion
+        navigationVersion = '2.4.1'
+        roomVersion = '2.4.2'
+        lifecycleVersion = '2.4.1'
+    }
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath "com.android.tools.build:gradle:7.0.4"
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.3.5"
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
